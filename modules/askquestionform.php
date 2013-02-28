@@ -46,11 +46,7 @@ if(isset($_POST['description'])){
 	<?php wp_nonce_field( 'new-post' ); ?>
 </form>
 </div> <!-- END QAF FORM -->
-
-
 <?php
-global $qaf_post_type;
-
 
 if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POST['action'] == "qaf_new_post") {
        
@@ -64,13 +60,13 @@ if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) &&  $_POS
 	'post_category'	=>	array($_POST['cat']),  // Usable for custom taxonomies too
 	'tags_input'	=>	array($tags),
 	'post_status'	=>	'publish',           // Choose: publish, preview, future, draft, etc.
-	'post_type'	=>	$qaf_post_type  //'post',page' or use a custom post type if you want to
+	'post_type'	=>	community_qa_get_posttype()  //'post',page' or use a custom post type if you want to
 	);
 
 	//SAVE THE POST
 	$pid = wp_insert_post($new_post);
 
-             //SET OUR TAGS UP PROPERLY
+        //SET OUR TAGS UP PROPERLY
 	wp_set_post_tags($pid, $_POST['post_tags']);
 
 	
